@@ -1,0 +1,5 @@
+*.pyc
+*.log
+tmp
+logs
+remote_ret*
