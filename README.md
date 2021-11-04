@@ -35,11 +35,18 @@ get kudu table id by kudu name from kudu web
 can be tested like this:
 python kudu_table_id_parser.py --table_name=...
 
-## how to use
+## usage
+### analyse table size
 make run name = 'impala::db.table'
 or: 
 make run
 (need configure search_table_name in env.sh)
+
+### export and import table structure
+make db_name="export_db_name" export_table
+
+
+make db_name="import_db_name" import_table
 
 ## not yet implement
 ...

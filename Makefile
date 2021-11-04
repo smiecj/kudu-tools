@@ -1,6 +1,12 @@
 run:
 	sh main.sh $(name)
 
+export_table:
+	sh export_table.sh $(db_name)
+
+import_table:
+	sh import_table.sh $(db_name)
+
 test_load_json:
 	python python_test/test_load_json.py
 

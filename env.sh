@@ -1,4 +1,12 @@
 home_path=/home/tools/kudu-tools
+
+impala_host="impalad_host"
+impala_port="impalad_port"
+impala_table_filter=".*stg*"
+impala_table_sql_store_folder=sqls
+impala_create_table_sql_file_name=create_table.sql
+impala_create_table_sql_file_path=$impala_table_sql_store_folder/$impala_create_table_sql_file_name
+
 kudu_hosts=("kudu_master_node1" "kudu_master_node2" "kudu_master_node3")
 kudu_port=7051
 kudu_webui_port=8051
