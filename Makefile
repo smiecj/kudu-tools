@@ -1,11 +1,14 @@
-run:
-	sh main.sh $(name)
+summary:
+	sh table_size_summary.sh $(name)
 
 export_table:
 	sh export_table.sh $(db_name)
 
 import_table:
 	sh import_table.sh $(db_name)
+
+backup_table:
+	sh backup_table.sh $(source_db) $(target_db)
 
 test_load_json:
 	python python_test/test_load_json.py

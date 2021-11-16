@@ -17,11 +17,15 @@ mkdir -p $impala_table_sql_store_folder
 echo "create database if not exists $input_db_name\n" > $impala_create_table_sql_file_path
 rm -f $impala_create_table_sql_file_path
 
+## impala env: produce
+eval $(get_impala_env_info_by_envname "produce")
+impala_host=$tmp_impala_host
+impala_port=$tmp_impala_port
+
 main() {
     # get all table name in specify db name
     impala_tables_str=`impala-shell -i ${impala_host}:${impala_port} -d $input_db_name -q 'show tables'`
     log_debug "get all table ret: $impala_tables_str"
-    # IFS='\n' read -r -a impala_table_arr <<< $impala_tables_str
     impala_table_arr=($(echo $impala_tables_str | tr "," "\n"))
     for table_name in ${impala_table_arr[@]}
     do

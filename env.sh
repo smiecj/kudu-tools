@@ -1,7 +1,29 @@
 home_path=/home/tools/kudu-tools
 
-impala_host="impalad_host"
-impala_port="impalad_port"
+## produce env
+produce_impala_host=produce_impala_host
+produce_impala_port=21000
+
+## test env
+test_impala_host=test_impala_host
+test_impala_port=21000
+
+## get specific env's information
+### output: 
+get_impala_env_info_by_envname() {
+     local env_name=$1
+     case "$env_name" in
+     "produce")
+          echo "tmp_impala_host=$produce_impala_host"
+          echo "tmp_impala_port=$produce_impala_port"
+          ;;
+     "test")
+          echo "tmp_impala_host=$test_impala_host"
+          echo "tmp_impala_port=$test_impala_port"
+          ;;
+     esac
+}
+
 impala_table_filter=".*stg*"
 impala_table_sql_store_folder=sqls
 impala_create_table_sql_file_name=create_table.sql
