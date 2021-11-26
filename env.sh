@@ -29,6 +29,11 @@ impala_table_sql_store_folder=sqls
 impala_create_table_sql_file_name=create_table.sql
 impala_create_table_sql_file_path=$impala_table_sql_store_folder/$impala_create_table_sql_file_name
 
+backup_before_date=2021-11-18
+backup_table_allowlist="(backup_allow_task_name)"
+
+sync_task_tables_file=datalink_task.txt
+
 kudu_hosts=("kudu_master_node1" "kudu_master_node2" "kudu_master_node3")
 kudu_port=7051
 kudu_webui_port=8051

@@ -10,6 +10,9 @@ import_table:
 backup_table:
 	sh backup_table.sh $(source_db) $(target_db)
 
+check_table:
+	sh check_table.sh $(db_name) $(source_db_name)
+
 test_load_json:
 	python python_test/test_load_json.py
 

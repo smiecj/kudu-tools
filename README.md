@@ -50,5 +50,8 @@ make db_name="import_db_name" import_table
 ### backup kudu table data
 make source_db="source_db_name" target_db="target_db_name" backup_table
 
+### check kudu table
+make db_name="db_name" source_db_name="stg" check_table
+
 ## not yet implement
 ...
