@@ -7,6 +7,9 @@ export_table:
 import_table:
 	sh import_table.sh $(db_name)
 
+transform_table:
+	sh transform_table.sh $(source_db_name) $(target_db_name)
+
 backup_table:
 	sh backup_table.sh $(source_db) $(target_db)
 

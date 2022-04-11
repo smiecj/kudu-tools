@@ -9,7 +9,7 @@ get_kudu_tserver() {
 # join kudu master node
 join_master_node() {
 	tmp_kudu_master_str=""
-	for host in ${kudu_hosts[@]}
+	for host in ${kudu_master_hosts[@]}
 	do
 		if [[ $tmp_kudu_master_str != "" ]]; then
 			tmp_kudu_master_str=`echo $tmp_kudu_master_str,$host:$kudu_port`
@@ -95,7 +95,7 @@ util_parse_json_array_return_joinstr() {
 ## <= kudu 1.7 must use kudu table id, >= kudu 1.8 can directly use kudu table name
 util_get_kudu_fs_list_cond() {
 	kudu_table_name=$1
-	for host in ${kudu_hosts[@]}
+	for host in ${kudu_master_hosts[@]}
 	do
 		local parse_id_ret="`python kudu_table_id_parser.py --kudu_host $host --kudu_port $kudu_webui_port --table_name $kudu_table_name`"
 		### if current kudu node is not master node, will not able to get table id, skip it
