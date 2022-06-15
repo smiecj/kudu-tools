@@ -35,15 +35,19 @@ main() {
             log_debug "after filter table name: $table_name"
 
             # get all table create sql, and output to log file
-            create_table_str=`impala-shell -i $impala_host:$impala_port -d $input_db_name -q "show create table $table_name" 2>/dev/null`
+            create_table_str=`impala-shell -i $impala_host:$impala_port -d $input_db_name -q "show create table $table_name" 2>/dev/null || true`
+            if [ -z "$create_table_str" ]; then
+                log_warn "table: $table_name show create table empty"
+                continue
+            fi
             create_table_str=`echo $create_table_str | tr -d "|" | tr -d "-" | tr -d "+" | tr -d "\n" | sed "s/result   *//g"`
             log_debug "current create table sql: $create_table_str"
             echo $create_table_str >> $impala_create_table_sql_file_path
         fi
     done
 
-    # At last we need to replace some keyword and add semicolon to every end of line
-    sed -i "s/ data / `data` /g" $impala_create_table_sql_file_path
+    # At last we need to replace some keyword and add semicolon to every end of line    
+    sed -i "s/ data / \`data\` /g" $impala_create_table_sql_file_path
     sed -i "s/\n/;\n/g" $impala_create_table_sql_file_path
 }
 

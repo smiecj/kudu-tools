@@ -8,13 +8,13 @@ import_table:
 	sh import_table.sh $(db_name)
 
 transform_table:
-	sh transform_table.sh $(source_db_name) $(target_db_name)
+	sh transform_table.sh $(source_db) $(target_db)
 
 backup_table:
 	sh backup_table.sh $(source_db) $(target_db)
 
 check_table:
-	sh check_table.sh $(db_name) $(source_db_name)
+	sh check_table.sh $(db_name) $(source_db)
 
 test_load_json:
 	python python_test/test_load_json.py

@@ -37,14 +37,16 @@ backup_table_allowlist="(backup_allow_task_name)"
 sync_task_tables_file=datalink_task.txt
 
 kudu_master_hosts=("kudu_master_node1" "kudu_master_node2" "kudu_master_node3")
-kudu_master_hosts_str="'${kudu_master_hosts[0]}'"
 for index in "${!kudu_master_hosts[@]}"
 do
-     if [ $index -gt 1 ]; then
-          kudu_master_hosts_str="$kudu_master_hosts_str,'${kudu_master_hosts[$index]}'"
+     if [ $index -ge 1 ]; then
+          kudu_master_hosts_str="$kudu_master_hosts_str,${kudu_master_hosts[$index]}"
+     else
+          kudu_master_hosts_str="${kudu_master_hosts[$index]}"
      fi
 done
-kudu_table_suffix="COMMENT '' STORED AS KUDU TBLPROPERTIES ('kudu.master_addresses'=$kudu_master_hosts_str)"
+kudu_master_hosts_str="'$kudu_master_hosts_str'"
+kudu_table_suffix="COMMENT '' STORED AS KUDU TBLPROPERTIES ('kudu.master_addresses'=$kudu_master_hosts_str);"
 kudu_port=7051
 kudu_webui_port=8051
 kudu_table_server_port=7050
