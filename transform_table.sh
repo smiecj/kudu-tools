@@ -40,6 +40,11 @@ main() {
                 continue
             fi
             create_table_str=`echo $create_table_str | tr -d "|" | tr -d "-" | tr -d "+" | tr -d "\n" | sed "s/result   *//g"`
+            ## get primary key from fist field and set not null
+            primary_key=`echo $create_table_str | sed 's/.* ( //g' | sed 's/ .*//g'`
+            log_debug "current table primary key: $primary_key"
+            create_table_str=`echo $create_table_str | sed "s/ $primary_key BIGINT / $primary_key BIGINT NOT /g"`
+            create_table_str=`echo $create_table_str | sed "s/) WITH SERDEPROPERTIES/, PRIMARY KEY($primary_key) ) WITH SERDEPROPERTIES/g"`
             log_debug "current create table sql: $create_table_str"
             echo "" >> $impala_transform_table_sql_file_path
             echo "$create_table_str" >> $impala_transform_table_sql_file_path
@@ -55,10 +60,6 @@ main() {
     sed -i "s/CREATE TABLE $source_db_name/CREATE TABLE $target_db_name/g" $impala_transform_table_sql_file_path
     sed -i "s/COMMENT 'from deserializer'/NULL ENCODING AUTO_ENCODING COMPRESSION DEFAULT_COMPRESSION/g" $impala_transform_table_sql_file_path
     sed -i "s/WITH SERDEPROPERTIES.*/$kudu_table_suffix/g" $impala_transform_table_sql_file_path
-    ## default primary key: id
-    ### fix keyword: PRIMARY KEY column 'id' does not exist in the table
-    sed -i "s/id BIGINT NULL/id BIGINT NOT NULL/g" $impala_transform_table_sql_file_path
-    sed - "s/)   COMMENT/, PRIMARY KEY (id)) COMMENT/g" $impala_transform_table_sql_file_path
 }
 
 main
