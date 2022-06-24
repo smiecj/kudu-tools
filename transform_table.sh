@@ -53,6 +53,7 @@ main() {
 
     # At last we need to replace some keyword and add semicolon to every end of line
     sed -i "s/ data / \`data\` /g" $impala_transform_table_sql_file_path
+    sed -i "s/ date / \`date\` /g" $impala_transform_table_sql_file_path
     # sed -i "s/)\n/);\n/g" $impala_transform_table_sql_file_path
 
     # hive to impala create sql script
