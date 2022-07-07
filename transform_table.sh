@@ -44,6 +44,8 @@ main() {
             primary_key=`echo $create_table_str | sed 's/.* ( //g' | sed 's/ .*//g'`
             log_debug "current table primary key: $primary_key"
             create_table_str=`echo $create_table_str | sed "s/ $primary_key BIGINT / $primary_key BIGINT NOT /g"`
+            ### primary key type maybe string
+            create_table_str=`echo $create_table_str | sed "s/ $primary_key STRING / $primary_key STRING NOT /g"`
             create_table_str=`echo $create_table_str | sed "s/) WITH SERDEPROPERTIES/, PRIMARY KEY($primary_key) ) WITH SERDEPROPERTIES/g"`
             log_debug "current create table sql: $create_table_str"
             echo "" >> $impala_transform_table_sql_file_path
