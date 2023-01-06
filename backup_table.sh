@@ -46,7 +46,8 @@ backup_table_count=0
 not_sync_table_arr=()
 for table_name in ${impala_table_arr[@]}
 do
-    if [[ "$table_name" =~ $impala_table_filter ]]; then
+    table_name=$(filter_table $table_name)
+    if [[ -n "$table_name" ]]; then
         table_name=`echo $table_name | tr -d " " | tr -d "|"`
         log_debug "after filter table name: $table_name"
 

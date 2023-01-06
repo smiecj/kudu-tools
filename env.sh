@@ -1,5 +1,3 @@
-home_path=/home/tools/kudu-tools
-
 ## produce env
 produce_impala_host=produce_impala_host
 produce_impala_port=21000
@@ -31,8 +29,10 @@ impala_transform_table_sql_file_name=transform_table.sql
 impala_create_table_sql_file_path=$impala_table_sql_store_folder/$impala_create_table_sql_file_name
 impala_transform_table_sql_file_path=$impala_table_sql_store_folder/$impala_transform_table_sql_file_name
 
-backup_before_date=2021-11-18
-backup_table_allowlist="(backup_allow_task_name)"
+#backup_before_date=2021-11-18
+backup_before_date=""
+#backup_table_allowlist="(backup_allow_task_name)"
+backup_table_allowlist=""
 
 sync_task_tables_file=datalink_task.txt
 

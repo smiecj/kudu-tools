@@ -11,6 +11,8 @@ if [ "" != "$input_table_name" ]; then
 	search_table_name=$input_table_name
 fi
 
+script_full_path=$(realpath $0)
+home_path=$(dirname $script_full_path)
 pushd $home_path
 
 mkdir -p $tmp_folder > /dev/null 2>&1

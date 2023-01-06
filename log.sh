@@ -1,6 +1,8 @@
 # log util
 ## log file: log_name_id.log
 
+LOG=TRUE
+
 LOG_LEVEL_DEBUG=3
 LOG_LEVEL_INFO=2
 LOG_LEVEL_WARN=1
@@ -19,6 +21,10 @@ if [ -n $find_id_ret ]; then
     log_id=$((find_id_ret + 1))
 fi
 log_file=$log_folder/"$log_name"_"$log_id".log
+
+if [[ "FALSE" == "${LOG}" ]]; then
+    log_file=/dev/null
+fi
 
 log_debug() {
     if [ $log_level -ge $LOG_LEVEL_DEBUG ]; then

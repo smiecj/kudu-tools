@@ -12,6 +12,7 @@ fi
 
 . ./env.sh
 . ./log.sh
+. ./common.sh
 
 mkdir -p $impala_table_sql_store_folder
 echo "create database if not exists $input_db_name\n" > $impala_create_table_sql_file_path
@@ -30,7 +31,8 @@ main() {
     for table_name in ${impala_table_arr[@]}
     do
         log_debug "current table name: $table_name"
-        if [[ "$table_name" =~ $impala_table_filter ]]; then
+        table_name=$(filter_table $table_name)
+        if [[ -n "$table_name" ]]; then
             table_name=`echo $table_name | tr -d " " | tr -d "|"`
             log_debug "after filter table name: $table_name"
 
@@ -48,6 +50,8 @@ main() {
 
     # At last we need to replace some keyword and add semicolon to every end of line    
     sed -i "s/ data / \`data\` /g" $impala_create_table_sql_file_path
+    sed -i "s/ date / \`date\` /g" $impala_create_table_sql_file_path
+    sed -i "s/ group / \`group\` /g" $impala_create_table_sql_file_path
     sed -i "s/\n/;\n/g" $impala_create_table_sql_file_path
 }
 

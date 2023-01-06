@@ -1,3 +1,6 @@
+actual_table_name ?=
+export
+
 summary:
 	sh table_size_summary.sh $(name)
 
@@ -13,8 +16,14 @@ transform_table:
 backup_table:
 	sh backup_table.sh $(source_db) $(target_db)
 
+drop_table:
+	sh drop_table.sh $(db) $(table)
+
 check_table:
 	sh check_table.sh $(db_name) $(source_db)
+
+transform_exec:
+	sh transform_and_execute.sh $(source_db) $(target_db) ${target_table}
 
 test_load_json:
 	python python_test/test_load_json.py

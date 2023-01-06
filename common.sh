@@ -17,3 +17,20 @@ get_source_table_name() {
     fi
     echo "$ret_table_name"
 }
+
+filter_table() {
+    local input_table_name=$1
+    if [ -n "${actual_table_name}" ]; then
+        if [ "${actual_table_name}" == "${input_table_name}" ]; then
+            echo "${input_table_name}"
+        else
+            echo ""
+        fi
+        return
+    fi
+    if [[ "$table_name" =~ $impala_table_filter ]]; then
+        echo "${input_table_name}"
+        return
+    fi
+    echo ""
+}
